@@ -1,0 +1,5 @@
+version: '3.8'
+
+services:
+  some-base-service-which-is-used-both-in-dev-and-prod:
+    image: some-super-real-image-name
