@@ -78,6 +78,11 @@ docker-logs:
 	$(QUIET) $(call docker_compose, logs $(o) $(s))
 	$(QUIET) $(call docker_submodules_make, docker-logs o="$(o)" s="$(s)")
 
+## Docker - View and follow output from containers
+.PHONY: docker-logsf
+docker-logsf:
+	$(QUIET) $(MAKE) -e docker-logs o="--follow $(o)" s="$(s)"
+
 ## Docker - Pause services
 .PHONY: docker-pause
 docker-pause:
@@ -117,7 +122,7 @@ docker-rm:
 ## Docker - Force remove stopped containers
 .PHONY: docker-rmf
 docker-rmf:
-	$(QUIET) $(MAKE) -e docker-rm o="-f $(o)" s="$(s)"
+	$(QUIET) $(MAKE) -e docker-rm o="--force $(o)" s="$(s)"
 
 ## Docker - Start services
 .PHONY: docker-start
@@ -152,4 +157,4 @@ docker-up:
 ## Docker - Create and start containers in detached state
 .PHONY: docker-upd
 docker-upd:
-	$(QUIET) $(MAKE) -e docker-up o="-d $(o)" s="$(s)"
+	$(QUIET) $(MAKE) -e docker-up o="--detach $(o)" s="$(s)"

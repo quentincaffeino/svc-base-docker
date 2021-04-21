@@ -50,18 +50,24 @@ make docker-build s="service-name service2-name"
 
 ### Extra commands
 
-Some commands with options are very commonly used and because to write them each time is very inconvenient shortcuts were introduced:
+Some commands with options are very commonly used and because to write them each time is very inconvenient shortcuts were added:
 
 ```sh
 make docker-upd
 # is same as
-make docker-up o="-d" # Detached mode: Run containers in the background.
+make docker-up o="--detach" # Detached mode: Run containers in the background.
 
 # AND
 
 make docker-rmf
 # is same as
-make docker-rm o="-f" # Don't ask to confirm removal
+make docker-rm o="--force" # Don't ask to confirm removal
+
+# AND
+
+make docker-logsf
+# is same as
+make docker-logs o="--follow" # View and follow output from containers
 ```
 
 # [Extends] Base repo for services with make
