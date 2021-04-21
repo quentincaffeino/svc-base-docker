@@ -15,7 +15,7 @@ DOCKER_COMPOSE_FILES := $(shell echo '${DOCKER_COMPOSE_FILES}' | sed -rE 's/.*"(
 
 ###> docker-compose submodules ###
 ## A list of docker-compose submodules
-DOCKER_COMPOSE_SUBMODULES ?= $(shell find . -mindepth 1 -maxdepth 1 -type d -not -name '.*')
+DOCKER_COMPOSE_SUBMODULES ?= 
 
 define docker_submodule_make
 	$(MAKE) -e -C${1} ${2};
