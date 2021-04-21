@@ -5,18 +5,20 @@ This setup makes use of `docker-compose` ability to combine multiple configurati
 ## Table of contents
 
 - [Base repo for docker based services with make](#base-repo-for-docker-based-services-with-make)
+	- [Table of contents](#table-of-contents)
 	- [Variables](#variables)
 	- [Usage](#usage)
-
-- [Base repo for services with make](#extends-base-repo-for-services-with-make)
-	- [Usage](#make-usage)
-	- [dotenv](#make-dotenv)
-		- [Overrides](#make-overrides)
+		- [Compose options](#compose-options)
+		- [Extra commands](#extra-commands)
+- [Base repo for services with make <small>[extends svc-base-make]</small>](#base-repo-for-services-with-make-smallextends-svc-base-makesmall)
+	- [Usage <small>[extends svc-base-make]</small>](#usage-smallextends-svc-base-makesmall)
+	- [dotenv <small>[extends svc-base-make]</small>](#dotenv-smallextends-svc-base-makesmall)
+		- [Overrides <small>[extends svc-base-make]</small>](#overrides-smallextends-svc-base-makesmall)
 
 ## Variables
 
 - `PROJECT_NAME` - Project name
-- `BASE_DOCKER_COMPOSE_FILES` & `DOCKER_COMPOSE_FILES` - Instructs make to which docker-compose files use for which environment
+- `DOCKER_COMPOSE_FILES` - Instructs make which docker-compose files use for which environment
 
 ## Usage
 
@@ -70,20 +72,20 @@ make docker-logsf
 make docker-logs o="--follow" # View and follow output from containers
 ```
 
-# [Extends] Base repo for services with make
+# Base repo for services with make <small>[extends svc-base-make]</small>
 
 Make setup which makes use of per-environment dotenv files
 
-## [Make] Usage
+## Usage <small>[extends svc-base-make]</small>
 
 ```sh
 make help
 ```
 
-## [Make] dotenv
+## dotenv <small>[extends svc-base-make]</small>
 
 Using `make` and per-environment dotenv files it is prepaired to run on several environments.
 
-### [Make] Overrides
+### Overrides <small>[extends svc-base-make]</small>
 
 To override variables locally create `.env.local` or `.env.ENVIRONMENT-NAME.local` (eg.: `.env.prod.local`) files.

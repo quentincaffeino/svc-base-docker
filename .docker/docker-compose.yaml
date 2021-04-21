@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   some-prod-service-which-is-used-only-in-prod:

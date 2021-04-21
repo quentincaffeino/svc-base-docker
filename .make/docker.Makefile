@@ -26,12 +26,11 @@ define docker_submodules_make
 endef
 ###< docker-compose submodules ###
 
-###> run as current (hopefully non-root) user ###
+###> run as current user (idealy non-root) ###
 # @see https://americanexpress.io/do-not-run-dockerized-applications-as-root/
 export USER_UID  = $(shell id -u)
 export GROUP_UID = $(shell id -g)
-export USER      = $(USER_UID):$(GROUP_UID)
-###< run as current (hopefully non-root) user ###
+###< run as current user (idealy non-root) ###
 
 ## Docker - restart docker-compose containers
 docker: docker-stop docker-rmf docker-upd
