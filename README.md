@@ -36,10 +36,10 @@ Where `COMMAND-NAME` is a docker-compose command name (eg.: up, down, config, ..
 
 ### Compose options
 
-There are times when you need to pass extra variables to `docker-compose` command. Most of them accept some sort of options flags/attributes. Those could be passed using `o` (options) variable like so:
+There are times when you need to pass extra variables to `docker-compose` command. Most of them accept some sort of options flags/attributes. Those could be passed using `go` (global options for docker-compose) or `o` (options for docker-compose\ command) variable like so:
 
 ```sh
-make docker-up o="-d"
+make docker-up go=--verbose o="-d"
 ```
 
     Note: Quotes are only nessesary when there are multiple space-separated flags/attrs to pass to the command.

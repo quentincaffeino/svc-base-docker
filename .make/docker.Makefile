@@ -38,122 +38,122 @@ docker: docker-stop docker-rmf docker-upd
 ## Docker - Build or rebuild services
 .PHONY: docker-build
 docker-build:
-	$(QUIET) $(call docker_submodules_make, docker-build o="$(o)" s="$(s)")
-	$(QUIET) $(call docker_compose, build $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-build go="$(go)" o="$(o)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) build $(o) $(s))
 
 ## Docker - Validate and view the Compose file
 .PHONY: docker-config
 docker-config:
-	$(QUIET) $(call docker_compose, config $(o))
-	$(QUIET) $(call docker_submodules_make, docker-config o="$(o)")
+	$(QUIET) $(call docker_compose, $(go) config $(o))
+	$(QUIET) $(call docker_submodules_make, docker-config go="$(go)" o="$(o)")
 
 ## Docker - Stops containers and removes containers, networks, volumes, and images created by `up`.
 .PHONY: docker-down
 docker-down:
-	$(QUIET) $(call docker_submodules_make, docker-down o="$(o)")
-	$(QUIET) $(call docker_compose, down $(o))
+	$(QUIET) $(call docker_submodules_make, docker-down go="$(go)" o="$(o)")
+	$(QUIET) $(call docker_compose, $(go) down $(o))
 
 ## Docker - Execute a command in a running container
 .PHONY: docker-exec
 docker-exec:
-	$(QUIET) $(call docker_compose, exec $(o) $(s) $(c))
-	$(QUIET) $(call docker_submodules_make, docker-exec o="$(o)" s="$(s)" c="$(c)")
+	$(QUIET) $(call docker_compose, $(go) exec $(o) $(s) $(c))
+	$(QUIET) $(call docker_submodules_make, docker-exec go="$(go)" o="$(o)" s="$(s)" c="$(c)")
 
 ## Docker - Execute a command in a running container
 .PHONY: docker-images
 docker-images:
-	$(QUIET) $(call docker_compose, images $(o) $(s))
-	$(QUIET) $(call docker_submodules_make, docker-images o="$(o)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) images $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-images go="$(go)" o="$(o)" s="$(s)")
 
 ## Docker - Kill containers
 .PHONY: docker-kill
 docker-kill:
-	$(QUIET) $(call docker_submodules_make, docker-kill o="$(o)" s="$(s)")
-	$(QUIET) $(call docker_compose, kill $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-kill go="$(go)" o="$(o)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) kill $(o) $(s))
 
 ## Docker - View output from containers
 .PHONY: docker-logs
 docker-logs:
-	$(QUIET) $(call docker_compose, logs $(o) $(s))
-	$(QUIET) $(call docker_submodules_make, docker-logs o="$(o)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) logs $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-logs go="$(go)" o="$(o)" s="$(s)")
 
 ## Docker - View and follow output from containers
 .PHONY: docker-logsf
 docker-logsf:
-	$(QUIET) $(MAKE) -e docker-logs o="--follow $(o)" s="$(s)"
+	$(QUIET) $(MAKE) -e docker-logs go="$(go)" o="--follow $(o)" s="$(s)"
 
 ## Docker - Pause services
 .PHONY: docker-pause
 docker-pause:
-	$(QUIET) $(call docker_submodules_make, docker-pause s="$(s)")
-	$(QUIET) $(call docker_compose, pause $(s))
+	$(QUIET) $(call docker_submodules_make, docker-pause go="$(go)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) pause $(s))
 
 ## Docker - List containers
 .PHONY: docker-ps
 docker-ps:
-	$(QUIET) $(call docker_compose, ps $(o) $(s))
-	$(QUIET) $(call docker_submodules_make, docker-ps o="$(o)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) ps $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-ps go="$(go)" o="$(o)" s="$(s)")
 
 ## Docker - Pull service images
 .PHONY: docker-pull
 docker-pull:
-	$(QUIET) $(call docker_compose, pull $(o) $(s))
-	$(QUIET) $(call docker_submodules_make, docker-pull o="$(o)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) pull $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-pull go="$(go)" o="$(o)" s="$(s)")
 
 ## Docker - Push service images
 .PHONY: docker-push
 docker-push:
-	$(QUIET) $(call docker_compose, push $(o) $(s))
-	$(QUIET) $(call docker_submodules_make, docker-push o="$(o)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) push $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-push go="$(go)" o="$(o)" s="$(s)")
 
 ## Docker - Restart services
 .PHONY: docker-restart
 docker-restart:
-	$(QUIET) $(call docker_submodules_make, docker-restart o="$(o)" s="$(s)")
-	$(QUIET) $(call docker_compose, restart $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-restart go="$(go)" o="$(o)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) restart $(o) $(s))
 
 ## Docker - Remove stopped containers
 .PHONY: docker-rm
 docker-rm:
-	$(QUIET) $(call docker_submodules_make, docker-rm o=$(o) s=$(s))
-	$(QUIET) $(call docker_compose, rm $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-rm go="$(go)" o=$(o) s=$(s))
+	$(QUIET) $(call docker_compose, $(go) rm $(o) $(s))
 
 ## Docker - Force remove stopped containers
 .PHONY: docker-rmf
 docker-rmf:
-	$(QUIET) $(MAKE) -e docker-rm o="--force $(o)" s="$(s)"
+	$(QUIET) $(MAKE) -e docker-rm go="$(go)" o="--force $(o)" s="$(s)"
 
 ## Docker - Start services
 .PHONY: docker-start
 docker-start:
-	$(QUIET) $(call docker_submodules_make, docker-start s="$(s)")
-	$(QUIET) $(call docker_compose, start $(s))
+	$(QUIET) $(call docker_submodules_make, docker-start go="$(go)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) start $(s))
 
 ## Docker - Stop running containers without removing them
 .PHONY: docker-stop
 docker-stop:
-	$(QUIET) $(call docker_submodules_make, docker-stop o="$(o)" s="$(s)")
-	$(QUIET) $(call docker_compose, stop $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-stop go="$(go)" o="$(o)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) stop $(o) $(s))
 
 ## Docker - Display the running processes
 .PHONY: docker-top
 docker-top:
-	$(QUIET) $(call docker_compose, top $(s))
-	$(QUIET) $(call docker_submodules_make, docker-top s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) top $(s))
+	$(QUIET) $(call docker_submodules_make, docker-top go="$(go)" s="$(s)")
 
 ## Docker - Unpause services
 .PHONY: docker-unpause
 docker-unpause:
-	$(QUIET) $(call docker_compose, unpause $(s))
-	$(QUIET) $(call docker_submodules_make, docker-unpause s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) unpause $(s))
+	$(QUIET) $(call docker_submodules_make, docker-unpause go="$(go)" s="$(s)")
 
 ## Docker - Create and start containers
 .PHONY: docker-up
 docker-up:
-	$(QUIET) $(call docker_compose, up $(o) $(s))
-	$(QUIET) $(call docker_submodules_make, docker-up o="$(o)" s="$(s)")
+	$(QUIET) $(call docker_compose, $(go) up $(o) $(s))
+	$(QUIET) $(call docker_submodules_make, docker-up go="$(go)" o="$(o)" s="$(s)")
 
 ## Docker - Create and start containers in detached state
 .PHONY: docker-upd
 docker-upd:
-	$(QUIET) $(MAKE) -e docker-up o="--detach $(o)" s="$(s)"
+	$(QUIET) $(MAKE) -e docker-up go="$(go)" o="--detach $(o)" s="$(s)"
