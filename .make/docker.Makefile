@@ -1,16 +1,25 @@
 
+###> docker ###
+## Path to docker binary
+DOCKER_BIN ?= $(shell which docker)
+###< docker ###
+
 ###> docker-compose ###
-DOCKER_COMPOSE = $(shell which docker-compose)
+## Setting this to `1` will try to find and use compose v2 binary [default:0]
+TRY_DOCKER_COMPOSE_V2 ?= 0
+
+## Path to docker-compose (or compose v2) binary
+DOCKER_COMPOSE_BIN ?= $(shell test "$(TRY_DOCKER_COMPOSE_V2)" = "1" && "$(DOCKER_BIN)" compose >/dev/null 2>/dev/null || false; test "$$?" = "0" && echo "$(DOCKER_BIN)" compose || echo "$(shell which docker-compose)")
 
 define docker_compose
-	"$(DOCKER_COMPOSE)" -p "$(PROJECT_NAME)" ${DOCKER_COMPOSE_FILES} ${1};
+	$(DOCKER_COMPOSE_BIN) -p "$(PROJECT_NAME)" $(DOCKER_COMPOSE_FILES) $(1);
 endef
 ###< docker-compose ###
 
 ###> docker-compose files ###
 # Dotenv has those elements stored as multiline strings,
 # to use them as arguments it must be extracted from string quotes (")
-DOCKER_COMPOSE_FILES := $(shell echo '${DOCKER_COMPOSE_FILES}' | sed -rE 's/.*"(.*)".*/\1/')
+DOCKER_COMPOSE_FILES := $(shell echo '$(DOCKER_COMPOSE_FILES)' | sed -rE 's/.*"(.*)".*/\1/')
 ###< docker-compose files ###
 
 ###> docker-compose submodules ###
@@ -18,11 +27,11 @@ DOCKER_COMPOSE_FILES := $(shell echo '${DOCKER_COMPOSE_FILES}' | sed -rE 's/.*"(
 DOCKER_COMPOSE_SUBMODULES ?= 
 
 define docker_submodule_make
-	$(MAKE) -e -C${1} ${2};
+	$(MAKE) -e -C$(1) $(2);
 endef
 
 define docker_submodules_make
-	$(foreach SUBMODULE, $(DOCKER_COMPOSE_SUBMODULES), $(call docker_submodule_make,${SUBMODULE},${1}))
+	$(foreach SUBMODULE, $(DOCKER_COMPOSE_SUBMODULES), $(call docker_submodule_make,$(SUBMODULE),$(1)))
 endef
 ###< docker-compose submodules ###
 
