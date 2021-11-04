@@ -11,6 +11,7 @@ This setup makes use of `docker-compose` ability to combine multiple configurati
 		- [Compose options](#compose-options)
 		- [Extra commands](#extra-commands)
 - [Base repo for services with make <small>[extends svc-base-make]</small>](#base-repo-for-services-with-make-smallextends-svc-base-makesmall)
+	- [Prerequisites <small>[extends svc-base-make]</small>](#prerequisites-smallextends-svc-base-makesmall)
 	- [Usage <small>[extends svc-base-make]</small>](#usage-smallextends-svc-base-makesmall)
 	- [dotenv <small>[extends svc-base-make]</small>](#dotenv-smallextends-svc-base-makesmall)
 		- [Overrides <small>[extends svc-base-make]</small>](#overrides-smallextends-svc-base-makesmall)
@@ -75,6 +76,12 @@ make docker-logs o="--follow" # View and follow output from containers
 # Base repo for services with make <small>[extends svc-base-make]</small>
 
 Make setup which makes use of per-environment dotenv files
+
+## Prerequisites <small>[extends svc-base-make]</small>
+
+- sh
+- make
+- perl
 
 ## Usage <small>[extends svc-base-make]</small>
 

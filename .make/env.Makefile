@@ -9,15 +9,20 @@ ENV_PATH ?= .
 ## List of variables to omit while exporting
 SKIP_EXPORT_FOR ?= 
 
-include $(ENV_PATH)/.env
--include $(ENV_PATH)/.env.local
-VARS := $(filter-out $(SKIP_EXPORT_FOR),$(shell grep -shoP "^[^\#=]+(?==)(?!.*;)" $(ENV_PATH)/.env $(ENV_PATH)/.env.local))
-$(foreach v, $(VARS), $(eval $(shell echo export $(v) = "$($(v))")))
-
-ifneq ("$(ENV)", "")
-include $(ENV_PATH)/.env.$(ENV)
--include $(ENV_PATH)/.env.$(ENV).local
-VARS := $(filter-out $(SKIP_EXPORT_FOR),$(shell grep -shoP "^[^\#=]+(?==)(?!.*;)" $(ENV_PATH)/.env.$(ENV) $(ENV_PATH)/.env.$(ENV).local))
-$(foreach v, $(VARS), $(eval $(shell echo export $(v) = "$($(v))")))
+_ENV_FILES ?= $(ENV_PATH)/.env
+ifeq ($(shell test -e $(ENV_PATH)/.env.local && echo -n yes),yes)
+	_ENV_FILES += $(ENV_PATH)/.env.local
 endif
+
+ifneq ($(ENV),)
+	_ENV_FILES += $(ENV_PATH)/.env.$(ENV)
+
+	ifeq ($(shell test -e $(ENV_PATH)/.env.$(ENV).local && echo -n yes),yes)
+		_ENV_FILES += $(ENV_PATH)/.env.$(ENV).local
+	endif
+endif
+
+include $(_ENV_FILES)
+VARS := $(filter-out $(SKIP_EXPORT_FOR),$(shell perl -nle 'print $$& while m{^[^\#=]+(?==)(?!.*;)}g' $(_ENV_FILES)))
+$(foreach v, $(VARS), $(eval $(shell echo export $(v) = "$($(v))")))
 ###< env ###
