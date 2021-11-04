@@ -10,14 +10,14 @@ ENV_PATH ?= .
 SKIP_EXPORT_FOR ?= 
 
 _ENV_FILES ?= $(ENV_PATH)/.env
-ifeq ($(shell test -e $(ENV_PATH)/.env.local && echo -n yes),yes)
+ifeq ("$(shell test -e $(ENV_PATH)/.env.local && printf yes)","yes")
 	_ENV_FILES += $(ENV_PATH)/.env.local
 endif
 
 ifneq ($(ENV),)
 	_ENV_FILES += $(ENV_PATH)/.env.$(ENV)
 
-	ifeq ($(shell test -e $(ENV_PATH)/.env.$(ENV).local && echo -n yes),yes)
+	ifeq ("$(shell test -e $(ENV_PATH)/.env.$(ENV).local && printf yes)","yes")
 		_ENV_FILES += $(ENV_PATH)/.env.$(ENV).local
 	endif
 endif
