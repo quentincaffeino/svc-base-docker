@@ -9,7 +9,7 @@ DOCKER_BIN ?= $(shell which docker)
 TRY_DOCKER_COMPOSE_V2 ?= 0
 
 ## Path to docker-compose (or compose v2) binary
-DOCKER_COMPOSE_BIN ?= $(shell test "$(TRY_DOCKER_COMPOSE_V2)" = "1" && "$(DOCKER_BIN)" compose >/dev/null 2>/dev/null || false; test "$$?" = "0" && echo "$(DOCKER_BIN)" compose || echo "$(shell which docker-compose)")
+DOCKER_COMPOSE_BIN ?= $(shell test "$(TRY_DOCKER_COMPOSE_V2)" = "1" && "$(DOCKER_BIN)" compose >/dev/null 2>/dev/null || false; test "$$?" = "0" && echo "$(DOCKER_BIN)" compose || echo "$(shell which docker-compose 2> /dev/null)")
 
 define docker_compose
 	$(DOCKER_COMPOSE_BIN) -p "$(PROJECT_NAME)" $(DOCKER_COMPOSE_FILES) $(1);
