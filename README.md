@@ -7,6 +7,7 @@ This setup makes use of `docker-compose` ability to combine multiple configurati
 - [Base repo for docker based services with make](#base-repo-for-docker-based-services-with-make)
 	- [Table of contents](#table-of-contents)
 	- [Variables](#variables)
+	- [Prerequisites](#prerequisites)
 	- [Usage](#usage)
 		- [Compose options](#compose-options)
 		- [Extra commands](#extra-commands)
@@ -20,6 +21,14 @@ This setup makes use of `docker-compose` ability to combine multiple configurati
 
 - `PROJECT_NAME` - Project name
 - `DOCKER_COMPOSE_FILES` - Instructs make which docker-compose files use for which environment
+
+## Prerequisites
+
+- sh
+- make
+- perl
+- docker
+- docker compose (or docker-compose, supports both)
 
 ## Usage
 
