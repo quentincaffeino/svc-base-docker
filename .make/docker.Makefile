@@ -5,11 +5,11 @@ DOCKER_BIN ?= $(shell which docker)
 ###< docker ###
 
 ###> docker-compose ###
-## Setting this to `1` will try to find and use compose v2 binary [default:0]
-TRY_DOCKER_COMPOSE_V2 ?= 0
-
 ## Path to docker-compose (or compose v2) binary
-DOCKER_COMPOSE_BIN ?= $(shell test "$(TRY_DOCKER_COMPOSE_V2)" = "1" && "$(DOCKER_BIN)" compose >/dev/null 2>/dev/null || false; test "$$?" = "0" && echo "$(DOCKER_BIN)" compose || echo "$(shell which docker-compose 2> /dev/null)")
+DOCKER_COMPOSE_BIN ?= $(shell "$(DOCKER_BIN)" compose >/dev/null 2>/dev/null || false; test "$$?" = "0" && echo "$(DOCKER_BIN)" compose || echo "$(shell which docker-compose 2> /dev/null)")
+ifeq ($(DOCKER_COMPOSE_BIN),)
+$(error "Please install docker compose or docker-compose (https://github.com/docker/compose#where-to-get-docker-compose)")
+endif
 
 define docker_compose
 	$(DOCKER_COMPOSE_BIN) -p "$(PROJECT_NAME)" $(DOCKER_COMPOSE_FILES) $(1);
