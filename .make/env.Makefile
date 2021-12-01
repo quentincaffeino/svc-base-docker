@@ -17,7 +17,7 @@ endif
 
 include $(_ENV_FILES)
 VARS := $(filter-out $(SKIP_EXPORT_FOR),$(shell perl -nle 'print $$& while m{^[^\#=]+(?==)(?!.*;)}g' $(_ENV_FILES)))
-$(foreach v, $(VARS), $(eval $(shell echo export $(v) = "$($(v))")))
+$(foreach v, $(VARS), $(eval $(shell echo 'export -n $(v); export $(v) = "$($(v))"')))
 
 ### Load specific environment
 ifneq ($(ENV),)
@@ -29,6 +29,6 @@ endif
 
 include $(_ENV_FILES)
 VARS := $(filter-out $(SKIP_EXPORT_FOR),$(shell perl -nle 'print $$& while m{^[^\#=]+(?==)(?!.*;)}g' $(_ENV_FILES)))
-$(foreach v, $(VARS), $(eval $(shell echo export $(v) = "$($(v))")))
+$(foreach v, $(VARS), $(eval $(shell echo 'export -n $(v); export $(v) = "$($(v))"')))
 endif
 ###< env ###
